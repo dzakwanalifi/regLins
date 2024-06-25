@@ -1,6 +1,3 @@
-Sure! Here is a comprehensive `README.md` for your `regLins` package:
-
-```markdown
 # regLins
 
 `regLins` is an R package for performing linear regression analysis with different optimization methods and provides a Shiny application for interactive analysis.

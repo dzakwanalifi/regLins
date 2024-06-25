@@ -1,8 +1,14 @@
-library(methods)
-library(stats4)
-library(car)
-library(lmtest)
-library(nortest)
+if (!require(methods)) install.packages("methods", dependencies = TRUE)
+if (!require(stats4)) install.packages("stats4", dependencies = TRUE)
+if (!require(car)) install.packages("car", dependencies = TRUE)
+if (!require(lmtest)) install.packages("lmtest", dependencies = TRUE)
+if (!require(nortest)) install.packages("nortest", dependencies = TRUE)
+
+require(methods)
+require(stats4)
+require(car)
+require(lmtest)
+require(nortest)
 
 setClass(
   "regLins",
@@ -133,11 +139,11 @@ setMethod("summary",
             }
             
             cat("\n5. Uji Independensi Residual:\n")
-            dw_test <- durbinWatsonTest(model)
+            independence_test <- durbinWatsonTest(model)
             cat("Durbin-Watson test:\n")
-            print(dw_test)
-            cat("p-value:", dw_test$p.value, "\n")
-            if (!is.null(dw_test$p.value) && dw_test$p.value > 0.05) {
+            print(independence_test)
+            cat("p-value:", independence_test$p, "\n")
+            if (!is.null(independence_test$p) && independence_test$p > 0.05) {
               cat("Asumsi independensi residual terpenuhi\n")
             } else {
               cat("Asumsi independensi residual tidak terpenuhi\n")
@@ -145,12 +151,16 @@ setMethod("summary",
             
             if (length(object@coefficients) > 1) {
               cat("\n6. Uji Multikolinearitas:\n")
-              vif_values <- vif(model)
-              print(vif_values)
-              if (all(vif_values < 10)) {
-                cat("Asumsi tidak ada multikolinearitas terpenuhi\n")
+              if (any(is.na(coef(model)))) {
+                cat("Model contains aliased coefficients, VIF cannot be calculated.\n")
               } else {
-                cat("Asumsi tidak ada multikolinearitas tidak terpenuhi\n")
+                vif_values <- vif(model)
+                print(vif_values)
+                if (all(vif_values < 10)) {
+                  cat("Asumsi tidak ada multikolinearitas terpenuhi\n")
+                } else {
+                  cat("Asumsi tidak ada multikolinearitas tidak terpenuhi\n")
+                }
               }
             }
           })

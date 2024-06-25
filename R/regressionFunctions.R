@@ -1,3 +1,4 @@
+library(methods)
 library(stats4)
 library(car)
 library(lmtest)
@@ -15,7 +16,7 @@ setClass(
   )
 )
 
-setGeneric("regLin", function(y, X, method="kuadrat terkecil") standardGeneric("regLin"))
+setGeneric("regLin", function(y, X, method = "kuadrat terkecil") standardGeneric("regLin"))
 
 setMethod("regLin", 
           signature(y = "numeric", X = "matrix"),
@@ -59,7 +60,7 @@ setMethod("regLin",
 setGeneric("summary", function(object) standardGeneric("summary"))
 
 setMethod("summary", 
-          signature(object="regLins"), 
+          signature(object = "regLins"), 
           function(object) {
             cat("Metode: ", object@method, "\n")
             cat("Koefisien:\n")
@@ -157,7 +158,7 @@ setMethod("summary",
 setGeneric("plot", function(x, y, ...) standardGeneric("plot"))
 
 setMethod("plot", 
-          signature(x="regLins", y="missing"), 
+          signature(x = "regLins", y = "missing"), 
           function(x, y) {
             par(mfrow = c(1, 2))
             qqnorm(x@residuals, main = "Plot Q-Q Normal", pch = 19, col = "blue")

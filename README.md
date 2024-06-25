@@ -119,8 +119,7 @@ plot(model)
 
 #### Arguments
 
-- `x`: An object of class `regLins`.
-- `y`: Not used.
+- `object`: An object of class `regLins`.
 
 ## Author
 

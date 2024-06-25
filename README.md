@@ -114,7 +114,7 @@ Plots diagnostic plots for the regression model.
 #### Usage
 
 ```r
-plot(x, y)
+plot(model)
 ```
 
 #### Arguments

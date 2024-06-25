@@ -38,7 +38,11 @@ setMethod("regLin",
             fitted <- as.numeric(X %*% coefficients)
             residuals <- as.numeric(y - fitted)
             
-            colnames(X) <- make.names(ifelse(is.null(colnames(X)), paste0("V", 1:ncol(X)), colnames(X)))
+            if (is.null(colnames(X))) {
+              colnames(X) <- paste0("V", 1:ncol(X))
+            }
+            
+            colnames(X) <- make.names(colnames(X))
             
             if (ncol(X) == 1) {
               formula <- as.formula(paste("y ~", colnames(X)))

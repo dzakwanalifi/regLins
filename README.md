@@ -135,7 +135,7 @@ This package is licensed under the GPL-3 License.
 
 1. **Clone the Repository**: If you want to work directly with the source code or make contributions, you can clone the repository:
    ```sh
-   git clone https://github.com/yourusername/regLins.git
+   git clone https://github.com/dzakwanalifi/regLins.git
    ```
 
 2. **Issues and Contributions**: If you encounter any issues or want to contribute to the development of this package, feel free to open an issue or submit a pull request on GitHub.

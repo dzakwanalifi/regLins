@@ -18,8 +18,8 @@ setClass(
 setGeneric("regLin", function(y, X, method="kuadrat terkecil") standardGeneric("regLin"))
 
 setMethod("regLin", 
-          signature(y="numeric", X="matrix"),
-          function(y, X, method="kuadrat terkecil") {
+          signature(y = "numeric", X = "matrix"),
+          function(y, X, method = "kuadrat terkecil") {
             if (method == "kuadrat terkecil") {
               obj_fun <- function(beta) {
                 sum((y - X %*% beta)^2)
@@ -38,7 +38,7 @@ setMethod("regLin",
             fitted <- as.numeric(X %*% coefficients)
             residuals <- as.numeric(y - fitted)
             
-            colnames(X) <- make.names(colnames(X))
+            colnames(X) <- make.names(ifelse(is.null(colnames(X)), paste0("V", 1:ncol(X)), colnames(X)))
             
             if (ncol(X) == 1) {
               formula <- as.formula(paste("y ~", colnames(X)))
@@ -49,7 +49,7 @@ setMethod("regLin",
             df <- data.frame(y = y, X)
             model <- lm(formula, data = df)
             
-            new("regLins", coefficients=coefficients, fitted=fitted, residuals=residuals, method=method, formula=formula, model=model)
+            new("regLins", coefficients = coefficients, fitted = fitted, residuals = residuals, method = method, formula = formula, model = model)
           })
 
 setGeneric("summary", function(object) standardGeneric("summary"))

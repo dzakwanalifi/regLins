@@ -1,9 +1,11 @@
+# Load necessary libraries
 library(methods)
 library(stats4)
 library(car)
 library(lmtest)
 library(nortest)
 
+# Define the regLins class
 setClass(
   "regLins",
   slots = list(
@@ -16,8 +18,10 @@ setClass(
   )
 )
 
+# Define the generic function for regLin
 setGeneric("regLin", function(y, X, method = "kuadrat terkecil") standardGeneric("regLin"))
 
+# Define the method for the regLin function
 setMethod("regLin", 
           signature(y = "numeric", X = "matrix"),
           function(y, X, method = "kuadrat terkecil") {
@@ -39,6 +43,7 @@ setMethod("regLin",
             fitted <- as.numeric(X %*% coefficients)
             residuals <- as.numeric(y - fitted)
             
+            # Ensure column names are correctly assigned
             if (is.null(colnames(X))) {
               colnames(X) <- paste0("V", 1:ncol(X))
             }
@@ -57,6 +62,7 @@ setMethod("regLin",
             new("regLins", coefficients = coefficients, fitted = fitted, residuals = residuals, method = method, formula = formula, model = model)
           })
 
+# Define the summary method for regLins objects
 setGeneric("summary", function(object) standardGeneric("summary"))
 
 setMethod("summary", 
@@ -155,6 +161,7 @@ setMethod("summary",
             }
           })
 
+# Define the plot method for regLins objects
 setGeneric("plot", function(x, y, ...) standardGeneric("plot"))
 
 setMethod("plot", 
